@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->string('phone', 13)->unique();
             $table->string('password');
             $table->timestamps();
+            $table->softDeletes();
         });
         Employee::create([
             "name" => 'Rasul',
