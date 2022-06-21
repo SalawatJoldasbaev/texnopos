@@ -148,9 +148,10 @@ return [
     |
     */
 
+    // Rasul written
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'email' => [
+            'required' => 'Please, sing in with valid email address and your email must be unique!',
         ],
     ],
 

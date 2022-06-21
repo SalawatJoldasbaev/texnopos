@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Employee;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration {
     /**
@@ -19,6 +21,16 @@ return new class extends Migration {
             $table->string('password');
             $table->timestamps();
         });
+        Employee::create([
+            "name" => 'Rasul',
+            "phone" => '+998999541667',
+            "password" => Hash::make('12345'),
+        ]);
+        Employee::create([
+            "name" => 'Ashirbek',
+            "phone" => '+998883545350',
+            "password" => Hash::make('12345'),
+        ]);
     }
 
     /**
