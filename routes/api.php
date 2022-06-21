@@ -7,10 +7,11 @@ use App\Http\Controllers\AuthController;
 
 
 
-Route::get('/login/employee', [AuthController::class, 'loginEmployee']);
+Route::get('/employee/login', [AuthController::class, 'loginEmployee']);
 
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('/getme', [AuthController::class, 'getMe']);
+    Route::post('/employee/create', [AuthController::class, 'createEmployee']);
 });
 
 
