@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\TeacherController;
 
 Route::get('/employee/login', [AuthController::class, 'loginEmployee']);
@@ -30,5 +31,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/teacher/delete/{id}', 'delete');
         Route::get('/teacher/history', 'history');
         Route::get('/teacher/restore/{id}', 'restore');
+    });
+    Route::controller(CourseController::class)->group(function(){
+        Route::post('/course/create', 'create');
+        Route::get('/course/show', 'show');
+        Route::put('/course/update/{id}', 'update');
+        Route::delete('/course/delete/{id}', 'delete');
+        Route::get('/course/history', 'history');
+        Route::get('/course/restore/{id}', 'restore');
     });
 });
