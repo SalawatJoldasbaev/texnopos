@@ -28,7 +28,7 @@ class TeacherRequest extends FormRequest
         return [
             "name" => "required|string",
             "image" => "required|url",
-            "description" => "required|"
+            "description" => "required"
         ];
     }
 

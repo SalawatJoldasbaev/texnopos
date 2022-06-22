@@ -8,9 +8,10 @@ use App\Http\Requests\CourseRequest;
 
 class CourseController extends Controller
 {
-    public function create(CourseRequest $request){
+    public function create(CourseRequest $request)
+    {
         $course = Course::firstWhere('name', $request->name);
-        if($course){
+        if ($course) {
             return ResponseController::error('This course is already available');
         }
         Course::create([
@@ -29,43 +30,44 @@ class CourseController extends Controller
         ]);
         return ResponseController::success();
     }
-    public function show(Request $request){
+    public function show(Request $request)
+    {
         $courses = Course::all();
-        if(count($courses) == 0){
-            return ResponseController::error('There is no courses to show', 404);
-        }
         return ResponseController::data($courses);
     }
-    public function update($id, CourseRequest $request){
+    public function update($id, CourseRequest $request)
+    {
         $course = Course::find($id);
-        if(!$course){
+        if (!$course) {
             return ResponseController::error('There is no course to update', 404);
         }
         $course->update($request->all());
         return  ResponseController::success();
     }
-    public function delete($id){
+    public function delete($id)
+    {
         $course = Course::find($id);
-        if(!$course){
+        if (!$course) {
             return ResponseController::error('There is no course to delete', 404);
         }
         $course->delete();
         return ResponseController::success();
     }
-    public function history(){
+    public function history()
+    {
         $courses = Course::onlyTrashed()->get();
-        if(count($courses) == 0){
+        if (count($courses) == 0) {
             return ResponseController::error('There is no deleted course', 404);
         }
         return ResponseController::data($courses);
     }
-    public function restore($id){
+    public function restore($id)
+    {
         $course = Course::withTrashed()->find($id);
-        if($course->trashed()){
+        if ($course->trashed()) {
             $course->restore();
             return ResponseController::success();
         }
         return ResponseController::error('There is no deleted course to restore', 404);
-
     }
 }

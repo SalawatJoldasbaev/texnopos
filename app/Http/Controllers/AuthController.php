@@ -11,22 +11,26 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function loginEmployee(Request $request){
+    public function loginEmployee(Request $request)
+    {
         $employee = Employee::where('phone', $request->phone)->first();
-        if(!$employee or !Hash::check($request->password, $employee->password)){
+        if (!$employee or !Hash::check($request->password, $employee->password)) {
             return ResponseController::error('Either phone or password is incorrect');
         }
         $token = $employee->createToken('employee')->plainTextToken;
         return ResponseController::data([
-            "token" => $token
+            'name'=> $employee->name,
+            'token' => $token
         ]);
     }
-    public function getMe(Request $request){
-            return $request->user();
+    public function getMe(Request $request)
+    {
+        return $request->user();
     }
-    public function createEmployee(AuthRequest $request){
+    public function createEmployee(AuthRequest $request)
+    {
         $employee = Employee::where('phone', $request->phone)->first();
-        if($employee){
+        if ($employee) {
             return ResponseController::error('This employee is already exists', 403);
         }
         Employee::create([
@@ -36,13 +40,14 @@ class AuthController extends Controller
         ]);
         return ResponseController::success();
     }
-    public function showEmployee(){
+    public function showEmployee()
+    {
         $employees = Employee::paginate(10);
         $collection = [
             "last_page" => $employees->lastPage(),
             "employees" => [],
         ];
-        foreach($employees as $employee){
+        foreach ($employees as $employee) {
             $collection['employees'][] = [
                 "name" => $employee->name,
                 "phone" => $employee->phone,
@@ -51,17 +56,17 @@ class AuthController extends Controller
         }
         return ResponseController::data($collection);
     }
-    public function deleteEmployee($id){
-        $employee = Employee::find($id);
-        if(!$employee){
+    public function deleteEmployee(Employee $employee)
+    {
+        if (!$employee) {
             return  ResponseController::error('There is no Employee!', 404);
         };
         $employee->delete();
         return ResponseController::success();
     }
-    public function updateEmployee($id, AuthRequest $request){
-        $employee = Employee::find($id);
-        if(!$employee){
+    public function updateEmployee(AuthRequest $request, Employee $employee)
+    {
+        if (!$employee) {
             return ResponseController::error('There is no Employee  to update!', 404);
         }
         $employee->update([
@@ -71,13 +76,15 @@ class AuthController extends Controller
         ]);
         return ResponseController::success();
     }
-    public function history(){
+    public function history()
+    {
         $employees  = Employee::onlyTrashed()->get();
         return ResponseController::data($employees);
     }
-    public function restore($id){
+    public function restore($id)
+    {
         $employee = Employee::withTrashed()->find($id);
-        if($employee->trashed()){
+        if ($employee->trashed()) {
             $employee->restore();
             return ResponseController::success();
         }
