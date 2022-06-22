@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use App\Http\Requests\TeacherRequest;
 
 class TeacherController extends Controller
 {
-    public function create(Request $request){
+    public function create(TeacherRequest $request){
         $teacher = Teacher::where('name', $request->name)->first();
         if($teacher){
             return ResponseControler::error('The teacher is exists');
@@ -30,6 +31,7 @@ class TeacherController extends Controller
         }
         foreach($teachers as $teacher){
             $collection["teachers"][] = [
+                "teacher_id" => $teacher->id,
                 "name" => $teacher->name,
                 "image" => $teacher->image,
                 "description" => $teacher->description
@@ -37,7 +39,7 @@ class TeacherController extends Controller
         }
         return  ResponseController::data($collection);
     }
-    public function update($id, Request $request){
+    public function update($id, TeacherRequest $request){
         $teacher = Teacher::find($id);
         if(!$teacher){
             return ResponseController::error('There is no teacher to update!', 404);

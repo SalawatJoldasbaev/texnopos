@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class TeacherRequest extends FormRequest
+class AuthRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,12 +26,11 @@ class TeacherRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|string",
-            "image" => "required|url",
-            "description" => "required|"
+            "name" => 'required|string',
+            "phone" => 'required|integer',
+            "password" => 'required|min:8'
         ];
     }
-
     public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(\response(['message'=>$validator->errors()->first()], 422));

@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use Illuminate\Http\Request;
+use App\Http\Requests\CourseRequest;
 
 class CourseController extends Controller
 {
-    public function create(Request $request){
-        $course = Course::where('name', $request->name)->first();
+    public function create(CourseRequest $request){
+        $course = Course::firstWhere('name', $request->name);
         if($course){
             return ResponseController::error('This course is already available');
         }
@@ -28,14 +29,14 @@ class CourseController extends Controller
         ]);
         return ResponseController::success();
     }
-    public function show(){
+    public function show(Request $request){
         $courses = Course::all();
         if(count($courses) == 0){
             return ResponseController::error('There is no courses to show', 404);
         }
         return ResponseController::data($courses);
     }
-    public function update($id, Request $request){
+    public function update($id, CourseRequest $request){
         $course = Course::find($id);
         if(!$course){
             return ResponseController::error('There is no course to update', 404);
