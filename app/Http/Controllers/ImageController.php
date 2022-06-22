@@ -13,7 +13,7 @@ class ImageController extends Controller
     public function  upload(ImageRequest $imagerequest){
         $image_url = [];
         $images = $imagerequest->file('images');
-        $user = $imagerequest->name;
+        $user = $imagerequest->user()->name;
         if(! is_array($images)){
             $image_name = time()."_".Str::random(10).".".$images->getClientOriginalExtension();
             $images->move('Images',$image_name);

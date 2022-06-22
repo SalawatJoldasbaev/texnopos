@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->date('date');
             $table->longText('body');
             $table->enum('type', ['blog', 'news']);
-            $table->bigInteger('views');
+            $table->bigInteger('views')->default(0);
             $table->timestamps();
         });
     }
