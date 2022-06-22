@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use App\Http\Requests\AuthRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,15 +24,7 @@ class AuthController extends Controller
     public function getMe(Request $request){
             return $request->user();
     }
-    public function createEmployee(Request $request){
-        $validator = Validator::make($request->all(), [
-            "name" => 'required|string',
-            "phone" => 'required|unique:employees,phone|min:13',
-            "password" => 'required|min:5'
-        ]);
-        if($validator->fails()){
-            return ResponseController::error($validator->errors()->first());
-        }
+    public function createEmployee(AuthRequest $request){
         $employee = Employee::where('phone', $request->phone)->first();
         if($employee){
             return ResponseController::error('This employee is already exists', 403);
@@ -66,15 +59,7 @@ class AuthController extends Controller
         $employee->delete();
         return ResponseController::success();
     }
-    public function updateEmployee($id, Request $request){
-        $validator = Validator::make($request->all(), [
-            "name" => 'required|string',
-            "phone" => 'required|integer',
-            "password" => 'required|min:5'
-        ]);
-        if($validator->fails()){
-            return ResponseController::error($validator->errors()->first());
-        }
+    public function updateEmployee($id, AuthRequest $request){
         $employee = Employee::find($id);
         if(!$employee){
             return ResponseController::error('There is no Employee  to update!', 404);
