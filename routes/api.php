@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\TeacherController;
 
-Route::get('/login/employee', [AuthController::class, 'loginEmployee']);
+Route::get('/employee/login', [AuthController::class, 'loginEmployee']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::controller(ImageController::class)->group(function () {
@@ -25,5 +25,10 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::controller(TeacherController::class)->group(function() {
         Route::post('/teacher/create', 'create');
+        Route::get('/teacher/show', 'show');
+        Route::put('/teacher/update/{id}', 'update');
+        Route::delete('/teacher/delete/{id}', 'delete');
+        Route::get('/teacher/history', 'history');
+        Route::get('/teacher/restore/{id}', 'restore');
     });
 });
