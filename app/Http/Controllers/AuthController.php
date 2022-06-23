@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use App\Http\Requests\AuthRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,11 +19,75 @@ class AuthController extends Controller
         }
         $token = $employee->createToken('employee')->plainTextToken;
         return ResponseController::data([
-            "token" => $token
+            'name'=> $employee->name,
+            'token' => $token
         ]);
     }
     public function getMe(Request $request)
     {
         return $request->user();
+    }
+    public function createEmployee(AuthRequest $request)
+    {
+        $employee = Employee::where('phone', $request->phone)->first();
+        if ($employee) {
+            return ResponseController::error('This employee is already exists', 403);
+        }
+        Employee::create([
+            "name" => $request->name,
+            "phone" => $request->phone,
+            "password" => Hash::make($request->password)
+        ]);
+        return ResponseController::success();
+    }
+    public function showEmployee()
+    {
+        $employees = Employee::paginate(10);
+        $collection = [
+            "last_page" => $employees->lastPage(),
+            "employees" => [],
+        ];
+        foreach ($employees as $employee) {
+            $collection['employees'][] = [
+                "name" => $employee->name,
+                "phone" => $employee->phone,
+                "password" => $employee->password,
+            ];
+        }
+        return ResponseController::data($collection);
+    }
+    public function deleteEmployee(Employee $employee)
+    {
+        if (!$employee) {
+            return  ResponseController::error('There is no Employee!', 404);
+        };
+        $employee->delete();
+        return ResponseController::success();
+    }
+    public function updateEmployee(AuthRequest $request, Employee $employee)
+    {
+        if (!$employee) {
+            return ResponseController::error('There is no Employee  to update!', 404);
+        }
+        $employee->update([
+            "name" => $request->name,
+            "phone" => $request->phone,
+            "password" => Hash::make($request->password)
+        ]);
+        return ResponseController::success();
+    }
+    public function history()
+    {
+        $employees  = Employee::onlyTrashed()->get();
+        return ResponseController::data($employees);
+    }
+    public function restore($id)
+    {
+        $employee = Employee::withTrashed()->find($id);
+        if ($employee->trashed()) {
+            $employee->restore();
+            return ResponseController::success();
+        }
+        return ResponseController::error('There is no deleted employee to restore', 404);
     }
 }

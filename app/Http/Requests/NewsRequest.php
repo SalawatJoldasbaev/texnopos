@@ -18,6 +18,6 @@ class NewsRequest extends FormRequest
             'date' =>'required|date',
             'body' =>'required',
             'type' =>'required'
-        ];
+       ];
     }
 }

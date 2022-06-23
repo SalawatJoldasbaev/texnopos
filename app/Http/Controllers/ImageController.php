@@ -45,7 +45,7 @@ class ImageController extends Controller
         }
         $image->delete();
         File::delete($image_name);
-        return ResponseControler::success('Image successfuly deleted', 200);
+        return ResponseController::success('Image successfuly deleted', 200);
     }
 
     public function allImages()
@@ -62,6 +62,6 @@ class ImageController extends Controller
             'uploaded_at' =>$image->created_at
         ];
         }
-        return ResponseControler::data($final);
+        return ResponseController::data($final);
     }
 }

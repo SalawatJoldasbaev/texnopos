@@ -18,16 +18,17 @@ return new class extends Migration {
             $table->foreignIdFor(Teacher::class);
             $table->string('image');
             $table->string('name');
-            $table->string('duration');
+            $table->string('lesson_duration');
             $table->integer('number_pupils');
             $table->text('description');
             $table->json('who_for')->nullable();
             $table->json('advantages')->nullable();
             $table->integer('module_count');
             $table->integer('lessons_count');
-            $table->string('lesson_duration');
+            $table->string('course_duration');
             $table->json('topics');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

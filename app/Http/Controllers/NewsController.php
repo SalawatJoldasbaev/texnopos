@@ -61,4 +61,3 @@ class NewsController extends Controller
         $news->increment('views');
         return ResponseControler::data($news);
     }
-}
