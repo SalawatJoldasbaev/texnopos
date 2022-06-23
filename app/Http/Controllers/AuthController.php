@@ -10,18 +10,19 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function loginEmployee(Request $request){
+    public function loginEmployee(Request $request)
+    {
         $employee = Employee::where('phone', $request->phone)->first();
-        if(!$employee or !Hash::check($request->password, $employee->password)){
-            return ResponseController::error('Password or phone incorrect');
+        if (!$employee or !Hash::check($request->password, $employee->password)) {
+            return ResponseController::error('Either phone or password is incorrect');
         }
         $token = $employee->createToken('employee')->plainTextToken;
         return ResponseController::data([
             "token" => $token
         ]);
     }
-    public function getMe(Request $request){
-            return $request->user();
+    public function getMe(Request $request)
+    {
+        return $request->user();
     }
-
 }
