@@ -13,18 +13,15 @@ class CompanyRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
     public function rules()
     {
         return [
-            //
+            'phone'=>'required',
+            'working_hours' =>'required|string',
+            'address' =>'required'
         ];
     }
 }

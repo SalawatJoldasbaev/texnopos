@@ -13,7 +13,7 @@ class ImageController extends Controller
     {
         $image_url = [];
         $images = $imagerequest->file('images');
-        $user = $imagerequest->name;
+        $user = $imagerequest->user()->name;
         if (! is_array($images)) {
             $image_name = time()."_".Str::random(10).".".$images->getClientOriginalExtension();
             $images->move('Images', $image_name);
@@ -41,7 +41,7 @@ class ImageController extends Controller
         $image_url = env('APP_URL')."/images/".$filename;
         $image = Image::where('image', $image_url)->first();
         if (!$image) {
-            return ResponseController::error('Image not found');
+            return ResponseControler::error('Image not found');
         }
         $image->delete();
         File::delete($image_name);
