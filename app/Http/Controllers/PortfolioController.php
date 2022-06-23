@@ -15,7 +15,7 @@ class PortfolioController extends Controller
             'type' =>$request->type,
             'description' =>$request->description,
         ]);
-        return ResponseControler::success('Successfuly created');
+        return ResponseController::success('Successfuly created');
     }
 
     public function update(PortfolioRequest $request ,Portfolio $portfolio){
@@ -25,12 +25,12 @@ class PortfolioController extends Controller
             'type',
             'description'
         ]));
-        return ResponseControler::success('Successfuly edited');
+        return ResponseController::success('Successfuly edited');
     }
 
     public function delete(Portfolio $portfolio){
         $portfolio->delete();
-        return ResponseControler::success('Successfuly deleted');
+        return ResponseController::success('Successfuly deleted');
     }
 
     public function allPortfolios(){
@@ -47,10 +47,10 @@ class PortfolioController extends Controller
                 'type' =>$item->type,
             ];
         }
-        return ResponseControler::data($final);
+        return ResponseController::data($final);
     }
 
     public function onePortfolio(Portfolio $portfolio){
-        return ResponseControler::data($portfolio);
+        return ResponseController::data($portfolio);
     }
 }

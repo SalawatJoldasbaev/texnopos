@@ -41,7 +41,7 @@ class ImageController extends Controller
         $image_url = env('APP_URL')."/images/".$filename;
         $image = Image::where('image', $image_url)->first();
         if (!$image) {
-            return ResponseControler::error('Image not found');
+            return ResponseController::error('Image not found');
         }
         $image->delete();
         File::delete($image_name);

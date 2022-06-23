@@ -8,7 +8,8 @@ use App\Http\Requests\NewsRequest;
 
 class NewsController extends Controller
 {
-    public function create(NewsRequest $newsRequest){
+    public function create(NewsRequest $newsRequest)
+    {
         News::create([
             'title' =>$newsRequest->title,
             'image' =>$newsRequest->image,
@@ -16,10 +17,11 @@ class NewsController extends Controller
             'date' =>$newsRequest->date,
             'type' =>$newsRequest->type,
         ]);
-        return ResponseControler::success('Successfuly created',201);
+        return ResponseController::success('Successfuly created', 201);
     }
 
-    public function update(NewsRequest $newsRequest,News $news){
+    public function update(NewsRequest $newsRequest, News $news)
+    {
         $news->update($newsRequest->only([
             'title',
             'image',
@@ -27,19 +29,20 @@ class NewsController extends Controller
             'date' ,
             'type'
         ]));
-        return ResponseControler::success('Successfuly edited');
+        return ResponseController::success('Successfuly edited');
     }
 
-    public function getNews($type){
-        $blogs = News::where('type',$type)->orderBy('id','Desc')->paginate(10);
-        if(count($blogs) == 0){
-            return ResponseControler::error('Not found',404);
+    public function getNews($type)
+    {
+        $blogs = News::where('type', $type)->orderBy('id', 'Desc')->paginate(10);
+        if (count($blogs) == 0) {
+            return ResponseController::error('Not found', 404);
         }
         $final = [
             'last_page' =>$blogs->lastPage(),
             'blogs' => []
         ];
-        foreach ($blogs as $blog){
+        foreach ($blogs as $blog) {
             $final['blogs'][] = [
                 'id' =>$blog->id,
                 'title' =>$blog->title,
@@ -49,15 +52,18 @@ class NewsController extends Controller
                 'views' =>$blog->views,
             ];
         }
-        return ResponseControler::data($final);
+        return ResponseController::data($final);
     }
 
-    public function delete(News $news){
+    public function delete(News $news)
+    {
         $news->delete();
-        return ResponseControler::success('Successfuly deleted');
+        return ResponseController::success('Successfuly deleted');
     }
 
-    public function oneNews(News $news){
+    public function oneNews(News $news)
+    {
         $news->increment('views');
-        return ResponseControler::data($news);
+        return ResponseController::data($news);
     }
+}

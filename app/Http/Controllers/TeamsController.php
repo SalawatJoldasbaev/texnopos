@@ -15,7 +15,7 @@ class TeamsController extends Controller
             'profession' =>$request->profession,
             'description' =>$request->description,
         ]);
-        return ResponseControler::success('Successfuly created',201);
+        return ResponseController::success('Successfuly created',201);
     }
 
     public function update(TeamsRequest $request,Team $team){
@@ -23,14 +23,14 @@ class TeamsController extends Controller
             'image',
             'full_name',
             'profession',
-            'description' 
+            'description'
         ]));
-        return ResponseControler::success('Successfuly edited');
+        return ResponseController::success('Successfuly edited');
     }
 
     public function delete(Team $team){
         $team->delete();
-        return ResponseControler::success('Successfuly deleted');
+        return ResponseController::success('Successfuly deleted');
     }
 
     public function allTeams(){
@@ -47,10 +47,10 @@ class TeamsController extends Controller
                 'profession' =>$team->profession,
             ];
         }
-        return ResponseControler::data($final);
+        return ResponseController::data($final);
     }
 
     public function oneTeam(Team $team){
-        return ResponseControler::data($team);
+        return ResponseController::data($team);
     }
 }

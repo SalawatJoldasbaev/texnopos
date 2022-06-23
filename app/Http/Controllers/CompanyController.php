@@ -9,13 +9,15 @@ use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    public function update(CompanyRequest $companyRequest){
+    public function update(CompanyRequest $companyRequest)
+    {
         $company =  Company::first();
         $company->update($companyRequest->all());
-        return ResponseControler::success('Successfuly edited');
+        return ResponseController::success('Successfuly edited');
     }
 
-    public function getCompany(){
-        return ResponseControler::data(Company::first());
+    public function getCompany()
+    {
+        return ResponseController::data(Company::first());
     }
 }
