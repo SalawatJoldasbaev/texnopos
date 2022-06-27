@@ -15,7 +15,6 @@ class NewsController extends Controller
             'image' =>$newsRequest->image,
             'body' =>$newsRequest->body,
             'date' =>$newsRequest->date,
-            'type' =>$newsRequest->type,
         ]);
         return ResponseController::success('Successfuly created', 201);
     }
@@ -27,23 +26,22 @@ class NewsController extends Controller
             'image',
             'body' ,
             'date' ,
-            'type'
         ]));
         return ResponseController::success('Successfuly edited');
     }
 
-    public function getNews($type)
+    public function getNews()
     {
-        $blogs = News::where('type', $type)->orderBy('id', 'Desc')->paginate(10);
-        if (count($blogs) == 0) {
-            return ResponseController::error('Not found', 404);
+        $news = News::orderBy('id', 'Desc')->paginate(10);
+        if (count($news) == 0) {
+            return ResponseController::error('News not yet', 404);
         }
         $final = [
-            'last_page' =>$blogs->lastPage(),
-            'blogs' => []
+            'last_page' =>$news->lastPage(),
+            'news' => []
         ];
-        foreach ($blogs as $blog) {
-            $final['blogs'][] = [
+        foreach ($news as $blog) {
+            $final['news'][] = [
                 'id' =>$blog->id,
                 'title' =>$blog->title,
                 'image' =>$blog->image,
