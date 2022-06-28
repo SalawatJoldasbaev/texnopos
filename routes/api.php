@@ -27,8 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(TeacherController::class)->group(function() {
         Route::post('/teacher/create', 'create');
         Route::get('/teacher/show', 'show');
-        Route::put('/teacher/update/{id}', 'update');
-        Route::delete('/teacher/delete/{id}', 'delete');
+        Route::put('/teacher/update/{teacher}', 'update');
+        Route::delete('/teacher/delete/{teacher}', 'delete');
         Route::get('/teacher/history', 'history');
         Route::get('/teacher/restore/{id}', 'restore');
     });
@@ -36,7 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/course/create', 'create');
         Route::get('/course/show', 'show');
         Route::put('/course/update/{id}', 'update');
-        Route::delete('/course/delete/{id}', 'delete');
+        Route::delete('/course/delete/{course}', 'delete');
         Route::get('/course/history', 'history');
         Route::get('/course/restore/{id}', 'restore');
     });

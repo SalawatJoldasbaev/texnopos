@@ -30,7 +30,7 @@ class CourseController extends Controller
         ]);
         return ResponseController::success();
     }
-    public function show(Request $request)
+    public function show()
     {
         $courses = Course::all();
         return ResponseController::data($courses);
@@ -44,9 +44,8 @@ class CourseController extends Controller
         $course->update($request->all());
         return  ResponseController::success();
     }
-    public function delete($id)
+    public function delete(Course $course)
     {
-        $course = Course::find($id);
         if (!$course) {
             return ResponseController::error('There is no course to delete', 404);
         }
