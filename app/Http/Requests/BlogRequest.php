@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CompanyRequest extends FormRequest
+class BlogRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,12 +16,18 @@ class CompanyRequest extends FormRequest
         return true;
     }
 
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, mixed>
+     */
     public function rules()
     {
         return [
-            'phone'=>'required',
-            'working_hours' =>'required|string',
-            'address' =>'required'
+            'title' =>'required|string',
+            'image' =>'required|url',
+            'date' =>'required|date',
+            'body' =>'required',
         ];
     }
 }
