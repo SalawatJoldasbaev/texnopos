@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Http\Requests\NewsRequest;
 
@@ -11,6 +12,7 @@ class NewsController extends Controller
     public function create(NewsRequest $newsRequest)
     {
         News::create([
+            'employee_id' =>$newsRequest->employee_id,
             'title' =>$newsRequest->title,
             'image' =>$newsRequest->image,
             'body' =>$newsRequest->body,
@@ -41,8 +43,10 @@ class NewsController extends Controller
             'news' => []
         ];
         foreach ($news as $blog) {
+            $employee = Employee::where('id', $blog->employee_id)->first();
             $final['news'][] = [
                 'id' =>$blog->id,
+                'created_by' => $employee->name,
                 'title' =>$blog->title,
                 'image' =>$blog->image,
                 'body' =>$blog->body,

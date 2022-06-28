@@ -17,18 +17,20 @@ class ImageController extends Controller
         if (! is_array($images)) {
             $image_name = time()."_".Str::random(10).".".$images->getClientOriginalExtension();
             $images->move('Images', $image_name);
-            $image_url[] = env('APP_URL')."/images/".$image_name;
+            $image_url[] = env('APP_URL')."images/".$image_name;
             Image::create([
-                'image'=>env('APP_URL')."/images/".$image_name,
+                'image'=>env('APP_URL')."images/".$image_name,
                 'uploadedby' =>$user,
             ]);
         }
         foreach ($images as $image) {
+            $coll = [];
             $image_name = time()."_".Str::random(10).".".$image->getClientOriginalExtension();
             $image->move('Images', $image_name);
-            $image_url[] = env('APP_URL')."/images/".$image_name;
+            $image_url[] = env('APP_URL')."images/".$image_name;
+            $coll[] = $image_url;
             Image::create([
-                'image'=>env('APP_URL')."/images/".$image_name,
+                'image'=>$coll,
                 'uploadedby' =>$user,
             ]);
         }

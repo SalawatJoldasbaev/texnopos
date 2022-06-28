@@ -34,18 +34,16 @@ class TeacherController extends Controller
         }
         return  ResponseController::data($collection);
     }
-    public function update($id, TeacherRequest $request)
+    public function update(Teacher $teacher, TeacherRequest $request)
     {
-        $teacher = Teacher::find($id);
         if (!$teacher) {
             return ResponseController::error('There is no teacher to update!', 404);
         }
         $teacher->update($request->all());
         return ResponseController::success();
     }
-    public function delete($id)
+    public function delete(Teacher $teacher)
     {
-        $teacher = Teacher::find($id);
         if (!$teacher) {
             return ResponseController::error('There is  no teacher to delete!', 404);
         }

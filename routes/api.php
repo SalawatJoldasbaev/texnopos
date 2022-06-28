@@ -49,32 +49,34 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::controller(TeacherController::class)->group(function() {
         Route::post('/teacher/create', 'create');
-        Route::put('/teacher/update/{id}', 'update');
-        Route::delete('/teacher/delete/{id}', 'delete');
+        Route::get('/teacher/show', 'show');
+        Route::put('/teacher/update/{teacher}', 'update');
+        Route::delete('/teacher/delete/{teacher}', 'delete');
         Route::get('/teacher/history', 'history');
         Route::get('/teacher/restore/{id}', 'restore');
     });
     Route::controller(CourseController::class)->group(function(){
         Route::post('/course/create', 'create');
         Route::put('/course/update/{id}', 'update');
-        Route::delete('/course/delete/{id}', 'delete');
+        Route::delete('/course/delete/{course}', 'delete');
         Route::get('/course/history', 'history');
         Route::get('/course/restore/{id}', 'restore');
     });
     Route::controller(NewsController::class)->group(function(){
-        Route::post('news/create','create');
+        Route::post('news/create/one','create');
         Route::delete('news/delete/{news}','delete');
-        Route::put('news/update/{news}','update');  
+        Route::get('get/news', 'getNews');
+        Route::put('news/update/{news}','update');
     });
     Route::controller(BlogController::class)->group(function(){
         Route::post('blog/create','create');
         Route::delete('blog/delete/{blog}','delete');
-        Route::put('blog/update/{blog}','update');  
+        Route::put('blog/update/{blog}','update');
     });
     Route::controller(PortfolioController::class)->group(function(){
         Route::post('portfolio/create','create');
         Route::delete('portfolio/delete/{portfolio}','delete');
-        Route::put('portfolio/update/{portfolio}','update');    
+        Route::put('portfolio/update/{portfolio}','update');
     });
     Route::controller(TeamsController::class)->group(function(){
         Route::post('team/create','create');
