@@ -6,31 +6,30 @@ use Illuminate\Support\Str;
 use App\Http\Requests\ImageRequest;
 use App\Models\Image;
 use Illuminate\Support\Facades\File;
+use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
-    public function upload(ImageRequest $imagerequest)
+    public function upload(Request $imagerequest)
     {
         $image_url = [];
         $images = $imagerequest->file('images');
         $user = $imagerequest->user()->name;
-        if (! is_array($images)) {
+        if (! array_is_list($images)) {
             $image_name = time()."_".Str::random(10).".".$images->getClientOriginalExtension();
             $images->move('Images', $image_name);
-            $image_url[] = env('APP_URL')."images/".$image_name;
+            $image_url[] = env('APP_URL')."Images/".$image_name;
             Image::create([
-                'image'=>env('APP_URL')."images/".$image_name,
+                'image'=>env('APP_URL')."Images/".$image_name,
                 'uploadedby' =>$user,
             ]);
         }
         foreach ($images as $image) {
-            $coll = [];
             $image_name = time()."_".Str::random(10).".".$image->getClientOriginalExtension();
             $image->move('Images', $image_name);
-            $image_url[] = env('APP_URL')."images/".$image_name;
-            $coll[] = $image_url;
+            $image_url[] = env('APP_URL')."/Images/".$image_name;
             Image::create([
-                'image'=>$coll,
+                'image'=>env('APP_URL')."/Images/".$image_name,
                 'uploadedby' =>$user,
             ]);
         }
@@ -39,8 +38,8 @@ class ImageController extends Controller
 
     public function delete($filename)
     {
-        $image_name = public_path('/images/'.$filename);
-        $image_url = env('APP_URL')."/images/".$filename;
+        $image_name = public_path('/Images/'.$filename);
+        $image_url = env('APP_URL')."/Images/".$filename;
         $image = Image::where('image', $image_url)->first();
         if (!$image) {
             return ResponseController::error('Image not found');
