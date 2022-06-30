@@ -17,7 +17,8 @@ class PortfolioRequest extends FormRequest
             'type' =>'required',
             'name' =>'required|string',
             'url' =>'required|url',
-            'description' =>'nullable|string'
+            'description' =>'nullable|string',
+            'image'=> 'required'
         ];
     }
 }

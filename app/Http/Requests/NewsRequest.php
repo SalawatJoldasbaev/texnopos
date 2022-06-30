@@ -13,7 +13,6 @@ class NewsRequest extends FormRequest
     public function rules()
     {
         return [
-            'employee_id' => 'required|exists:employees,id',
             'title' =>'required|string',
             'image' =>'required|url',
             'date' =>'required|date',

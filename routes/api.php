@@ -63,7 +63,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/course/restore/{id}', 'restore');
     });
     Route::controller(NewsController::class)->group(function(){
-        Route::post('news/create/one','create');
+        Route::post('news/create','create');
         Route::delete('news/delete/{news}','delete');
         Route::get('get/news', 'getNews');
         Route::put('news/update/{news}','update');

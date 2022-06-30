@@ -10,4 +10,8 @@ class Team extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    
+    protected $casts = [
+        'is_ceo'=> 'boolean'
+    ];
 }

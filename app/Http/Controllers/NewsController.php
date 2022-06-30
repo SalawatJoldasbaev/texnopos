@@ -12,7 +12,7 @@ class NewsController extends Controller
     public function create(NewsRequest $newsRequest)
     {
         News::create([
-            'employee_id' =>$newsRequest->employee_id,
+            'employee_id' =>$newsRequest->user()->id,
             'title' =>$newsRequest->title,
             'image' =>$newsRequest->image,
             'body' =>$newsRequest->body,

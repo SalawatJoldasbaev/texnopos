@@ -14,6 +14,7 @@ class PortfolioController extends Controller
             'url' =>$request->url,
             'type' =>$request->type,
             'description' =>$request->description,
+            'image'=> $request->image,
         ]);
         return ResponseController::success('Successfuly created');
     }
@@ -23,7 +24,8 @@ class PortfolioController extends Controller
             'name',
             'url',
             'type',
-            'description'
+            'description',
+            'image'
         ]));
         return ResponseController::success('Successfuly edited');
     }
@@ -45,6 +47,8 @@ class PortfolioController extends Controller
                 'name' =>$item->name,
                 'url' =>$item->url,
                 'type' =>$item->type,
+                'image'=> $item->image,
+                'description'=> $item->description,
             ];
         }
         return ResponseController::data($final);

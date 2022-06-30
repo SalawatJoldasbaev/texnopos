@@ -17,7 +17,8 @@ class TeamsRequest extends FormRequest
             'full_name' =>'required|string',
             'image' =>'required|url',
             'profession' =>'required|string',
-            'description' =>'required|string'
+            'description' =>'required|string',
+            'is_ceo'=> 'required'
         ];
     }
 }

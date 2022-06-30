@@ -14,6 +14,7 @@ class TeamsController extends Controller
             'full_name' =>$request->full_name,
             'profession' =>$request->profession,
             'description' =>$request->description,
+            'is_ceo'=> $request->is_ceo,
         ]);
         return ResponseController::success('Successfuly created',201);
     }
@@ -23,7 +24,8 @@ class TeamsController extends Controller
             'image',
             'full_name',
             'profession',
-            'description'
+            'description',
+            'is_ceo'
         ]));
         return ResponseController::success('Successfuly edited');
     }
@@ -34,17 +36,16 @@ class TeamsController extends Controller
     }
 
     public function allTeams(){
-        $teams = Team::paginate(10);
-        $final = [
-            'last_page' =>$teams->lastPage(),
-            'teams' => []
-        ];
+        $teams = Team::all();
+        $final = [];
         foreach ($teams as $team){
-            $final['teams'][] = [
+            $final[] = [
                 'id' =>$team->id,
                 'image' =>$team->image,
                 'full_name' =>$team->full_name,
                 'profession' =>$team->profession,
+                'description'=> $team->description,
+                'is_ceo'=> $team->is_ceo
             ];
         }
         return ResponseController::data($final);

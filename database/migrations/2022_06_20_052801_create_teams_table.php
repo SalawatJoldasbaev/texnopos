@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('full_name');
             $table->string('profession');
             $table->longText('description');
+            $table->boolean('is_ceo');
             $table->timestamps();
         });
     }
