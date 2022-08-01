@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\PortfolioController;
-use App\Http\Controllers\TeamsController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\TeamsController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\PortfolioController;
 
 Route::post('/employee/login', [AuthController::class, 'loginEmployee']);
 Route::controller(TeamsController::class)->group(function () {
@@ -88,5 +89,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(CompanyController::class)->group(function () {
         Route::put('company/edit', 'update');
         Route::get('company', 'getCompany');
+    });
+
+    Route::controller(ServiceController::class)
+    ->group(function() {
+        Route::post('service/create', 'create');
+        Route::get('service/index', 'index');
+        Route::put('service/update/{service}', 'update');
+        Route::delete('service/delete/{service}', 'delete');
     });
 });
