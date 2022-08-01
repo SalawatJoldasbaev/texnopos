@@ -16,10 +16,10 @@ Route::controller(TeamsController::class)->group(function () {
     Route::get('allteams', 'allTeams');
     Route::get('team/{team}', 'oneTeam');
 });
-Route::controller(PortfolioController::class)->group(function () {
-    Route::get('allportfolios', 'allPortfolios');
-    Route::get('oneportfolio/{portfolio}', 'onePortfolio');
-});
+// Route::controller(PortfolioController::class)->group(function () {
+//     Route::get('allportfolios', 'allPortfolios');
+//     Route::get('oneportfolio/{portfolio}', 'onePortfolio');
+// });
 Route::controller(NewsController::class)->group(function () {
     Route::get('allnews', 'getNews');
     Route::get('onenews/{news}', 'oneNews');
@@ -47,6 +47,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/employee/history', 'history');
         Route::get('/employee/restore/{id}', 'restore');
     });
+
     Route::controller(TeacherController::class)->group(function () {
         Route::post('/teacher/create', 'create');
         Route::get('/teacher/show', 'show');
@@ -73,6 +74,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('blog/delete/{blog}', 'delete');
         Route::put('blog/update/{blog}', 'update');
     });
+
     Route::controller(PortfolioController::class)->group(function () {
         Route::post('portfolio/create', 'create');
         Route::delete('portfolio/delete/{portfolio}', 'delete');

@@ -8,18 +8,19 @@ use Illuminate\Http\Request;
 
 class PortfolioController extends Controller
 {
-    public function create(PortfolioRequest $request){
+    public function create(PortfolioRequest $request)
+    {
         Portfolio::create([
+            'type' =>$request->type,
             'name' =>$request->name,
             'url' =>$request->url,
-            'type' =>$request->type,
             'description' =>$request->description,
-            'image'=> $request->image,
+            'image' => $request->image,
         ]);
         return ResponseController::success('Successfuly created');
     }
-
-    public function update(PortfolioRequest $request ,Portfolio $portfolio){
+    public function update(PortfolioRequest $request ,Portfolio $portfolio)
+    {
         $portfolio->update($request->only([
             'name',
             'url',
@@ -29,13 +30,13 @@ class PortfolioController extends Controller
         ]));
         return ResponseController::success('Successfuly edited');
     }
-
-    public function delete(Portfolio $portfolio){
+    public function delete(Portfolio $portfolio)
+    {
         $portfolio->delete();
         return ResponseController::success('Successfuly deleted');
     }
-
-    public function allPortfolios(){
+    public function allPortfolios()
+    {
         $portfolio = Portfolio::paginate(10);
         $final = [
             'last_page' => $portfolio->lastPage(),
@@ -53,8 +54,8 @@ class PortfolioController extends Controller
         }
         return ResponseController::data($final);
     }
-
-    public function onePortfolio(Portfolio $portfolio){
+    public function onePortfolio(Portfolio $portfolio)
+    {
         return ResponseController::data($portfolio);
     }
 }
