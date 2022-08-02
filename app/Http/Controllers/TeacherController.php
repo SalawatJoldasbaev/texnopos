@@ -47,7 +47,7 @@ class TeacherController extends Controller
     {
         $teacher = Teacher::findOrFail($teacher_id);
         if($teacher){
-            $teacherHasCourse = Course::find($teacher_id);
+            $teacherHasCourse = Course::where('teacher_id', $teacher_id)->first();
             if($teacherHasCourse){
                 return ResponseController::error('Teacher has a course so that you cannot delete!');
             }
