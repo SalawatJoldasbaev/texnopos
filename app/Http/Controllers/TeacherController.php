@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use App\Http\Requests\TeacherRequest;
@@ -42,12 +43,16 @@ class TeacherController extends Controller
         $teacher->update($request->all());
         return ResponseController::success();
     }
-    public function delete(Teacher $teacher)
+    public function delete($teacher_id)
     {
-        if (!$teacher) {
-            return ResponseController::error('There is  no teacher to delete!', 404);
+        $teacher = Teacher::findOrFail($teacher_id);
+        if($teacher){
+            $teacherHasCourse = Course::where('teacher_id', $teacher_id)->first();
+            if($teacherHasCourse){
+                return ResponseController::error('Teacher has a course so that you cannot delete!');
+            }
+            $teacher->delete();
         }
-        $teacher->delete();
         return ResponseController::success();
     }
     public function history()
