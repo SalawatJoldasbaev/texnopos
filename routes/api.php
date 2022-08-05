@@ -17,10 +17,10 @@ Route::controller(TeamsController::class)->group(function () {
     Route::get('allteams', 'allTeams');
     Route::get('team/{team}', 'oneTeam');
 });
-// Route::controller(PortfolioController::class)->group(function () {
-//     Route::get('allportfolios', 'allPortfolios');
-//     Route::get('oneportfolio/{portfolio}', 'onePortfolio');
-// });
+Route::controller(PortfolioController::class)->group(function () {
+    Route::get('allportfolios', 'allPortfolios');
+    Route::get('oneportfolio/{portfolio}', 'onePortfolio');
+});
 Route::controller(NewsController::class)->group(function () {
     Route::get('allnews', 'getNews');
     Route::get('onenews/{news}', 'oneNews');
@@ -30,8 +30,8 @@ Route::controller(BlogController::class)->group(function () {
     Route::get('oneblog/{blog}', 'oneblog');
 });
 
-Route::get('/teacher/show', [TeacherController::class,'show']);
-Route::get('course/show', [CourseController::class,'show']);
+Route::get('/teacher/show', [TeacherController::class, 'show']);
+Route::get('course/show', [CourseController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::controller(ImageController::class)->group(function () {
@@ -51,7 +51,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::controller(TeacherController::class)->group(function () {
         Route::post('/teacher/create', 'create');
-        Route::get('/teacher/show', 'show');
         Route::put('/teacher/update/{teacher}', 'update');
         Route::delete('/teacher/delete/{teacher}', 'delete');
         Route::get('/teacher/history', 'history');
@@ -92,10 +91,10 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::controller(ServiceController::class)
-    ->group(function() {
-        Route::post('service/create', 'create');
-        Route::get('service/index', 'index');
-        Route::put('service/update/{service}', 'update');
-        Route::delete('service/delete/{service}', 'delete');
-    });
+        ->group(function () {
+            Route::post('service/create', 'create');
+            Route::get('service/index', 'index');
+            Route::put('service/update/{service}', 'update');
+            Route::delete('service/delete/{service}', 'delete');
+        });
 });

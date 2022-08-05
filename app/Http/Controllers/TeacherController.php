@@ -23,6 +23,7 @@ class TeacherController extends Controller
         $teachers = Teacher::paginate(10);
         $collection = [
             "last_page" => $teachers->lastPage(),
+            'per_page' => $teachers->perPage(),
             "teachers" => [],
         ];
         foreach ($teachers as $teacher) {
@@ -46,9 +47,9 @@ class TeacherController extends Controller
     public function delete($teacher_id)
     {
         $teacher = Teacher::findOrFail($teacher_id);
-        if($teacher){
+        if ($teacher) {
             $teacherHasCourse = Course::where('teacher_id', $teacher_id)->first();
-            if($teacherHasCourse){
+            if ($teacherHasCourse) {
                 return ResponseController::error('Teacher has a course so that you cannot delete!');
             }
             $teacher->delete();

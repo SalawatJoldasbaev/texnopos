@@ -21,12 +21,12 @@ class ServiceController extends Controller
     }
     public function index()
     {
-        $services = Service::all();
+        $services = Service::all(['id', 'name', 'type', 'description', 'image', 'technologies']);
         return ResponseController::data($services);
     }
     public function update(Service $service, Request $request)
     {
-       $service->update($request->all());
+        $service->update($request->all());
         return ResponseController::success();
     }
     public function delete(Service $service)
