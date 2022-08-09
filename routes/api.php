@@ -29,7 +29,7 @@ Route::controller(BlogController::class)->group(function () {
     Route::get('allblogs', 'getBlogs');
     Route::get('oneblog/{blog}', 'oneblog');
 });
-
+Route::get('service/index', [ServiceController::class, 'index']);
 Route::get('/teacher/show', [TeacherController::class, 'show']);
 Route::get('course/show', [CourseController::class, 'show']);
 
@@ -93,7 +93,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(ServiceController::class)
         ->group(function () {
             Route::post('service/create', 'create');
-            Route::get('service/index', 'index');
             Route::put('service/update/{service}', 'update');
             Route::delete('service/delete/{service}', 'delete');
         });
