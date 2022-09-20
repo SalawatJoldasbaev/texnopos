@@ -11,6 +11,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\CourseRequestController;
 
 Route::post('/employee/login', [AuthController::class, 'loginEmployee']);
 Route::controller(TeamsController::class)->group(function () {
@@ -32,8 +33,16 @@ Route::controller(BlogController::class)->group(function () {
 Route::get('service/index', [ServiceController::class, 'index']);
 Route::get('/teacher/show', [TeacherController::class, 'show']);
 Route::get('course/show', [CourseController::class, 'show']);
+Route::post('/course/requests', [CourseRequestController::class, 'request']);
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('/course/requests')
+        ->controller(CourseRequestController::class)
+        ->group(function () {
+            Route::delete('/{courseRequest}', 'delete');
+            Route::post('/{courseRequest}', 'confirmed');
+            Route::get('/', 'history');
+        });
     Route::controller(ImageController::class)->group(function () {
         Route::post('image/upload', 'upload');
         Route::delete('image/delete/{filename}', 'delete');

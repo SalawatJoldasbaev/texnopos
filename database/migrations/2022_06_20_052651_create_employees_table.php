@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -24,13 +25,14 @@ return new class extends Migration {
         });
         Employee::create([
             "name" => 'Rasul',
-            "phone" => '+998999541667',
-            "password" => Hash::make('12345'),
+            "phone" => '+998900957117',
+            "password" => Hash::make('7117'),
         ]);
+
         Employee::create([
-            "name" => 'Ashirbek',
-            "phone" => '+998883545350',
-            "password" => Hash::make('12345'),
+            "name" => 'Telegram bot',
+            "phone" => '+998907091931',
+            "password" => Hash::make('7117'),
         ]);
     }
 
