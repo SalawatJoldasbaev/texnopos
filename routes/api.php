@@ -35,6 +35,7 @@ Route::get('/teacher/show', [TeacherController::class, 'show']);
 Route::get('course/show', [CourseController::class, 'show']);
 Route::post('/course/requests', [CourseRequestController::class, 'request']);
 Route::get('/courses/byName', [CourseController::class, 'byName']);
+Route::get('/courses/{course}', [CourseController::class, 'course']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/course/requests')

@@ -35,7 +35,10 @@ class CourseController extends Controller
         $courses = Course::all();
         return ResponseController::data($courses);
     }
-
+    public function course(Course $course)
+    {
+        return $course;
+    }
     public function byName()
     {
         $courses = Course::all(['id', 'name']);
