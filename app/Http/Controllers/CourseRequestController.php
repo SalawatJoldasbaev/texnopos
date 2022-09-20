@@ -64,6 +64,7 @@ class CourseRequestController extends Controller
         }
         $courseRequests = $courseRequests->paginate($per_page);
         $final = [
+            'page' => $courseRequests->page(),
             'per_page' => $per_page,
             'last_page' => $courseRequests->lastPage(),
             'data' => []
