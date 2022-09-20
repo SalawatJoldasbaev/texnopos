@@ -35,6 +35,13 @@ class CourseController extends Controller
         $courses = Course::all();
         return ResponseController::data($courses);
     }
+
+    public function byName()
+    {
+        $courses = Course::all(['id', 'name']);
+        return ResponseController::data($courses);
+    }
+
     public function update($id, CourseRequest $request)
     {
         $course = Course::find($id);
