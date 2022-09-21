@@ -54,7 +54,8 @@ class CourseRequestController extends Controller
         $type = $request->type ?? 'all';
         $courseRequests = CourseRequest::query();
         $per_page = $request->per_page ?? 20;
-        $courses = Course::withTrashed()->orderBy('id', 'desc')->get();
+        $courses = Course::withTrashed()->get();
+
         if ($type == 'confirmed') {
             $courseRequests = $courseRequests->where('status', 'confirmed');
         } elseif ($type == 'unconfirmed') {
@@ -62,7 +63,7 @@ class CourseRequestController extends Controller
         } elseif ($type == 'delete') {
             $courseRequests = $courseRequests->onlyTrashed();
         }
-        $courseRequests = $courseRequests->paginate($per_page);
+        $courseRequests = $courseRequests->orderBy('id', 'desc')->paginate($per_page);
         $final = [
             'page' => $courseRequests->currentPage(),
             'per_page' => $per_page,
