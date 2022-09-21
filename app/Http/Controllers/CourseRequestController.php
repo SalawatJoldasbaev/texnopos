@@ -54,7 +54,7 @@ class CourseRequestController extends Controller
         $type = $request->type ?? 'all';
         $courseRequests = CourseRequest::query();
         $per_page = $request->per_page ?? 20;
-        $courses = Course::withTrashed()->get();
+        $courses = Course::withTrashed()->orderBy('id', 'desc')->get();
         if ($type == 'confirmed') {
             $courseRequests = $courseRequests->where('status', 'confirmed');
         } elseif ($type == 'unconfirmed') {
