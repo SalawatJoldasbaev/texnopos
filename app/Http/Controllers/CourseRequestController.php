@@ -25,7 +25,7 @@ class CourseRequestController extends Controller
         ]);
 
         $course = Course::find($course_id);
-        Http::get("https://bots.salawat.me/bot.php", [
+        Http::get("https://bots.texnopos.uz/texnopos/bot.php", [
             'new_request' => 1,
             'id' => $courseRequest->id,
             'name' => $name,
