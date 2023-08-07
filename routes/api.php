@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WebhookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\CourseRequestController;
 
+Route::post('/webhook', WebhookController::class);
 Route::post('/employee/login', [AuthController::class, 'loginEmployee']);
 Route::controller(TeamsController::class)->group(function () {
     Route::get('allteams', 'allTeams');

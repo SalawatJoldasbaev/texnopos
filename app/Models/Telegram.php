@@ -6,15 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @mixin IdeHelperTeam
+ * @mixin IdeHelperTelegram
  */
-class Team extends Model
+class Telegram extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
-    
+    protected $fillable = [
+        'telegram_id',
+        'lang',
+        'step',
+        'info',
+    ];
+
     protected $casts = [
-        'is_ceo'=> 'boolean'
+        'info' => 'json'
     ];
 }
