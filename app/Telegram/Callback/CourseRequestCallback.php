@@ -26,7 +26,7 @@ class CourseRequestCallback
         ]);
         $bot->sendMessage(
             text: __('telegram.send_phone_number'),
-            reply_markup: ReplyKeyboardMarkup::make()->addRow(
+            reply_markup: ReplyKeyboardMarkup::make(resize_keyboard: true)->addRow(
                 KeyboardButton::make(__('telegram.send_phone_button'), request_contact: true),
                 KeyboardButton::make(__('telegram.back')),
             ),

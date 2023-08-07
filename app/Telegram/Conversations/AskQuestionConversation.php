@@ -49,7 +49,7 @@ class AskQuestionConversation extends Conversation
         $id = $user->telegram_id;
         $text = "🆕 New question\n➖➖➖➖➖➖";
         $text .= "\n👥Name: ".$user->info['first_name']." ".$user->info['last_name'];
-        $text .= "\n📱Phone: ".$user->info['phone'];
+        $text .= "\n📱Phone: ".($user->info['phone'] ?? 'no');
         $text .= "\n👥Username: <a href='tg://user?id=".$id."'>$name</a>";
         $text .= "\n💬Message: ".htmlspecialchars($bot->message()->text);
         $text .= "\n➖➖➖➖➖➖";
